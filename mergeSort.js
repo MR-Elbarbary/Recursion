@@ -1,5 +1,5 @@
 let arr1 = [1, 2, 3, 4, 5, 6, 7, 8];
-let arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+let arr2 = [9, 8, 7, 6, 5, 4, 3, 2, 1];
 
 function mergeSort(arr) {
     if (arr.length === 1) {
@@ -8,24 +8,33 @@ function mergeSort(arr) {
     let half = Math.floor(arr.length / 2);
     let left = arr.slice(0, half);
     let right = arr.slice(half, arr.length);
-    mergeSort(left);
-    mergeSort(right);
-    return merge(left, right)
-
+    left = mergeSort(left);
+    right = mergeSort(right);
+    let mergedArr = merge(left, right);
+    return mergedArr
 }
 
 function merge(left, right) {
     let mergedArr = [];
-    l = r = 0;
-    do {
+    let l = 0;
+    let r = 0;
+    while (l < left.length && r < right.length) {
         if (left[l] < right[r]) {
             mergedArr.push(left[l]);
             l++;
-        } else{
+        } else {
             mergedArr.push(right[r]);
             r++;
-        }    
-    } while ((r < right.length) || (l < left.length));
+        }
+    }
+    while (l < left.length) {
+        mergedArr.push(left[l]);
+        l++;
+    }
+    while (r < right.length) {
+        mergedArr.push(right[r]);
+        r++;
+    }
     return mergedArr
 }
 
